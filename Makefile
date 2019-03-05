@@ -8,3 +8,6 @@ django-startproject:
 
 django-create-app:
 	docker-compose run web python manage.py startapp ejercicios
+
+build:
+	docker-compose build

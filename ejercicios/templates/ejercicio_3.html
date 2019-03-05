@@ -1,0 +1,17 @@
+<html>
+<head>
+  <title>
+    Ejercicio de expresiones regulares
+  </title>
+</head>
+<body>
+
+  <h2>Últimos titulares de {{ newspaper }}</h2>
+
+  <ul>
+    {% for t in titulares %}
+    <li>{{ t.title }}</li>
+    {% endfor %}
+  </ul>
+</body>
+</html>

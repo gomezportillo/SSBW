@@ -1,7 +1,10 @@
 from django.shortcuts import render
-from django.shortcuts import HttpResponse
+from django.shortcuts import HttpResponse, render
 
 from random import randint
+import os
+import re
+import requests
 
 """
 Tema 1
@@ -187,3 +190,27 @@ def pick_word_at_random(list):
 	lenght = len(list)
 	index = randint(0, lenght - 1)
 	return list[index]
+
+
+# https://regex101.com/
+def ejercicio_3(request):
+
+	URL = 'http://ep00.epimg.net/rss/tags/ultimas_noticias.xml'
+	REGEX = r"<item>\W+<title><\!\[CDATA\[(.+?)\]\]><\/title>"
+	titulares = []
+
+	req = requests.get(URL)
+	if req.status_code == 200:
+
+		match = re.findall(REGEX, req.text)
+
+		for item in match:
+			titulares.append({'title': item})
+
+
+	context = {
+		'newspaper' : 'El País',
+		'titulares': titulares
+	}
+
+	return render(request, 'ejercicio_3.html', context)
