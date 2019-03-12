@@ -6,6 +6,12 @@ import os
 import re
 import requests
 
+from pymongo import MongoClient
+
+client = MongoClient('mongo', 27017)
+db = client.movies
+pelis = db.pelis
+
 """
 Tema 1
 """
@@ -214,3 +220,17 @@ def ejercicio_3(request):
 	}
 
 	return render(request, 'ejercicio_3.html', context)
+
+
+
+def ejercicio_4(request, my_limit):
+
+	pelis_list = []
+	pelis_list = pelis.find(limit=my_limit)
+
+	context = {
+		'limit': my_limit,
+		'pelis': pelis_list
+	}
+	# return HttpResponse(pelis_list)
+	return render(request, 'ejercicio_4.html', context)

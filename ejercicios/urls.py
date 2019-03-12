@@ -19,4 +19,6 @@ urlpatterns = [
 	# Tema 3: Django Templates, Jinja, requests, RSS feeds and regular expresions
 	path('3', views.ejercicio_3),
 
+	# Tema 4. MongoDB
+	path('4/<int:my_limit>', views.ejercicio_4),
 ]

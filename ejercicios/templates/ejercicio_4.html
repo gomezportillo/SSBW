@@ -1,0 +1,17 @@
+<html>
+<head>
+  <title>
+    Ejercicio de expresiones regulares
+  </title>
+</head>
+<body>
+
+  <h2>Lista de las {{limit}} primeras películas disponibles</h2>
+
+  <ul>
+    {% for p in pelis %}
+    <li>{{ p.title }}</li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
