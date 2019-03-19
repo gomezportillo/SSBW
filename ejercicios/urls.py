@@ -21,4 +21,8 @@ urlpatterns = [
 
 	# Tema 4. MongoDB
 	path('4/<int:my_limit>', views.ejercicio_4),
+
+	# Tema 5. Responsive CSS frameworks
+	path('5/pelis_que_sale/<str:actor>', views.ejercicio_5_resultado),
+	path('5', views.ejercicio_5_buscar),
 ]

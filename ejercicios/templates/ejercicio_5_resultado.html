@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <title>
+    Ejercicio de frameworks CSS
+  </title>
+</head>
+<body>
+  <div class="container">
+    <div class="col-md-12">
+
+      <br>
+
+      <div class="row">
+        <h2>Películas en las que actúa <i>{{actor}}</i></h2>
+      </div>
+
+      <br><br>
+
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th>Director</th>
+            <th>Año</th>
+            <th>IMBD</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in pelis %}
+          <tr>
+            <td>{{ p.title }}</td>
+            <td>{{ p.director }}</td>
+            <td>{{ p.year }}</td>
+            <td>{{ p.imdb.rating }}</td>
+          </tr>
+          {% endfor %}
+        </ul>
+
+      </div>
+    </div>
+  </body>
+  </html>

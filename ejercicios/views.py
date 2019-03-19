@@ -66,11 +66,6 @@ Tema 2
 """
 
 def ejercicio_2_1(request, lista):
-	"""
-	Given a list of strings, return the count of the number of strings where the
-	string length is 2 or more and the first and last chars of the string are
-	the same.
-	"""
 	str_array = lista.split(' ')
 
 	counter = 0
@@ -93,11 +88,6 @@ def ejercicio_2_1(request, lista):
 
 
 def ejercicio_2_2(request, lista):
-	"""
-	Given a list of numbers, return a list where all adjacent == elements have
-	been reduced to a single element, so [1, 2, 2, 3] returns [1, 2, 3]. You may
-	create a new list or modify the passed in list.
-	"""
 	str_array = lista.split(' ')
 	str_set = set(str_array)
 
@@ -107,12 +97,6 @@ def ejercicio_2_2(request, lista):
 
 
 def ejercicio_2_3(request, s):
-	"""
-	Given a string s, return a string made of the first 2 and the last 2 chars
-	of the original string, so 'spring' yields 'spng'. However, if the string
-	length is less than 2, return instead the empty string.
-	"""
-
 	if len(s) < 2:
 		result = ""
 	else:
@@ -123,11 +107,6 @@ def ejercicio_2_3(request, s):
 
 
 def ejercicio_2_4(request, s):
-	"""
-	Given a string, if its length is at least 3, add 'ing' to its end. Unless it
-	already ends in 'ing', in which case add 'ly' instead. If the string length
-	is less than 3, leave it unchanged.
-	"""
 	if len(s) >= 3:
 		if s[-3:] != 'ing':
 			end = 'ing'
@@ -197,7 +176,9 @@ def pick_word_at_random(list):
 	index = randint(0, lenght - 1)
 	return list[index]
 
-
+"""
+Tema 3
+"""
 # https://regex101.com/
 def ejercicio_3(request):
 
@@ -222,10 +203,11 @@ def ejercicio_3(request):
 	return render(request, 'ejercicio_3.html', context)
 
 
-
+"""
+Tema 4
+"""
 def ejercicio_4(request, my_limit):
 
-	pelis_list = []
 	pelis_list = pelis.find(limit=my_limit)
 
 	context = {
@@ -234,3 +216,25 @@ def ejercicio_4(request, my_limit):
 	}
 	# return HttpResponse(pelis_list)
 	return render(request, 'ejercicio_4.html', context)
+
+
+"""
+Tema 5
+"""
+def ejercicio_5_resultado(request, actor):
+
+	regex = re.compile(actor)
+	pelis_list = pelis.find({'actors':regex})
+
+	context = {
+		'actor': actor,
+		'pelis': pelis_list
+	}
+	return render(request, 'ejercicio_5_resultado.html', context)
+
+
+def ejercicio_5_buscar(request):
+	if request.GET.get('actor'):
+		return ejercicio_5_resultado(request, request.GET.get('actor'))
+	else:
+		return render(request, 'ejercicio_5_buscar.html')
