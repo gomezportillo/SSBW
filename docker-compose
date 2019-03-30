@@ -1,0 +1,5 @@
+2019-03-30T19:00:54.301+0000	Failed: open /datos/movies.json: no such file or directory
+2019-03-30T19:00:54.305+0000	imported 0 documents
+docker-compose exec mongo mongoimport --db movies --collection pelis --file /archivos/datos/movies.json
+2019-03-30T19:06:05.310+0000	connected to: localhost
+2019-03-30T19:06:05.679+0000	imported 2250 documents
