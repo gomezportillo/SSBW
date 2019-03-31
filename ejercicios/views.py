@@ -7,6 +7,7 @@ import re
 import requests
 
 from pymongo import MongoClient
+from bson import ObjectId
 
 client = MongoClient('mongo', 27017)
 db = client.movies
@@ -210,6 +211,7 @@ def ejercicio_4(request, my_limit):
 
 	pelis_list = pelis.find(limit=my_limit)
 
+
 	context = {
 		'limit': my_limit,
 		'pelis': pelis_list
@@ -238,3 +240,19 @@ def ejercicio_5_buscar(request):
 		return ejercicio_5_resultado(request, request.GET.get('actor'))
 	else:
 		return render(request, 'ejercicio_5_buscar.html')
+
+
+"""
+Tema 6
+"""
+def ejercicio_6(request, id):
+	peli = pelis.find_one({'_id': ObjectId(id)})
+
+	if peli['poster']:
+		peli['poster'] = peli['poster'].replace('http://ia.media-imdb.com', 'https://m.media-amazon.com')
+
+	context = {
+		'peli' : peli
+	}
+
+	return render(request, 'ejercicio_6_info.html', context)

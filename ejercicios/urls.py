@@ -23,6 +23,9 @@ urlpatterns = [
 	path('4/<int:my_limit>', views.ejercicio_4),
 
 	# Tema 5. Responsive CSS frameworks
-	path('5/pelis_que_sale/<str:actor>', views.ejercicio_5_resultado),
-	path('5', views.ejercicio_5_buscar),
+	path('pelis/actor/<str:actor>', views.ejercicio_5_resultado),
+	path('pelis', views.ejercicio_5_buscar),
+
+	# Tema 6. CSS
+	path('pelis/info/<str:id>', views.ejercicio_6, name='info'),
 ]

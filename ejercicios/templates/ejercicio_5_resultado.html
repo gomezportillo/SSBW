@@ -1,3 +1,4 @@
+{% load poll_extras %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -38,7 +39,7 @@
         <tbody>
           {% for p in pelis %}
           <tr>
-            <td>{{ p.title }}</td>
+            <td><a href={% url 'info' p|get:'_id' %}>{{ p.title }}</a></td>
             <td>{{ p.director }}</td>
             <td>{{ p.year }}</td>
             <td>{{ p.imdb.rating }}</td>

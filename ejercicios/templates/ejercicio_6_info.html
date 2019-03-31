@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+  <!-- Roboto Google's font -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+  <title>
+    CSS
+  </title>
+
+  <style>
+  body
+  {
+    background-color: whitesmoke;
+    margin: 0 auto;
+    font-family: 'Roboto', sans-serif;
+  }
+  h1
+  {
+    text-align: center;
+    padding: 40px;
+    background-color: lightgrey;
+  }
+  .my-table
+  {
+    margin:0px auto;
+    border: 2px solid;
+    border-color: grey;
+    background-color: snow;
+  }
+  .my-table thead
+  {
+    background-color: grey;
+  }
+  .my-table .key
+  {
+    padding: 7px;
+    background-color: lightgrey;
+  }
+  .my-table .value
+  {
+    padding-left: 15px;
+  }
+  </style>
+
+</head>
+<body>
+  <h1>Información de la película <i>{{ peli.title }}</i></h1>
+
+  <table class="my-table">
+    <thead>
+      <th>Key</th>
+      <th>Value</th>
+    </thead>
+    <tbody>
+      {% for key, value in peli.items %}
+        {% if key != 'tomato' %}
+        <tr>
+          <td class="key">
+            {{ key }}
+          </td>
+          <td class="value">
+            {% if key == 'poster' %}
+              <img alt="Imagen no disponible" src="{{ value }}">
+            {% else %}
+              {{ value }}
+            {% endif %}
+          </td>
+        </tr>
+        {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
