@@ -54,7 +54,7 @@ def ejercicio_1_3(request, year):
 	else:
 		msg = 'Te has equivocado de año...'
 
-	out = """
+	out = """HttpResponse
 		<html>
    		<h2>{}</h2>
 		</html>""".format(msg)
@@ -278,25 +278,45 @@ def ejercicio_6(request, id):
 """
 Tema 7
 """
+# from django.db import models
+# from django.forms import ModelForm
+# 
+# class Movie(models.Model):
+#     title 	 = forms.CharField(max_length=999)
+#     year 	 = forms.IntegerField()
+#     runtime  = forms.IntegerField()
+#     director = forms.CharField(max_length=999)
+#     poster   = forms.CharField(max_length=999)
+#     plot 	 = forms.CharField(widget=forms.Textarea)
+#
+#
+# class MovieForm(forms.ModelForm):
+# 	class Meta:
+# 		model = Movie
+# 		fields = ['title', 'year', 'runtime', 'director', 'poster', 'plot']
+
 from django import forms
 
 class EditForm(forms.Form):
 
-    title = forms.CharField(max_length=100)
-    year = forms.IntegerField()
-    director = forms.CharField(max_length=100)
-    plot = forms.CharField(widget=forms.Textarea)
+    title 	 = forms.CharField(max_length=999)
+    year 	 = forms.IntegerField()
+    runtime  = forms.IntegerField()
+    director = forms.CharField(max_length=999)
+    poster   = forms.CharField(max_length=999)
+    plot 	 = forms.CharField(widget=forms.Textarea)
 
 
 def ejercicio_7_edit(request, id):
+
 	if request.method == 'POST':
-		print("POSTTTT")
-	    # form = EditForm(request.POST)
-		#
-	    # if form.is_valid():
-	    #     return HttpResponseRedirect('/thanks/')
+		form = EditForm(request.POST)
+
+		if form.is_valid():
+			return HttpResponse('Película actualizada correctamente!✔️')
 
 	else:
-		form = EditForm()
+		peli = pelis.find_one({'_id': ObjectId(id)})
+		form = EditForm(initial=peli)
 
 	return render(request, 'ejercicio_7_edit.html', {'form': form})

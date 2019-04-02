@@ -28,11 +28,40 @@
 
       <form action="edit" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Submit">
+        <div class="form-group">
+          {{ form.as_p }}
+          <button class="btn btn-primary" type="submit" id="update">Actualizar</button>
+        </div>
+
       </form>
 
     </div>
   </div>
+
+  <script>
+  $( document ).ready(function()
+  {
+    // Add form-control class
+    var all_tags = ["input", "textarea"];
+
+    for (var i=0, max=all_tags.length; i < max; i++)
+    {
+      var all = document.getElementsByTagName(all_tags[i]);
+
+      for (var j=0, max=all.length; j < max; j++)
+      {
+        all[j].classList.add("form-control");
+      }
+    }
+
+    // Make label text bold
+    var all = document.getElementsByTagName("label");
+
+    for (var j=0, max=all.length; j < max; j++)
+    {
+      all[j].style.fontWeight = 'bold';
+    }
+  });
+  </script>
 </body>
 </html>
