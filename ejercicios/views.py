@@ -278,6 +278,25 @@ def ejercicio_6(request, id):
 """
 Tema 7
 """
+from django import forms
+
+class EditForm(forms.Form):
+
+    title = forms.CharField(max_length=100)
+    year = forms.IntegerField()
+    director = forms.CharField(max_length=100)
+    plot = forms.CharField(widget=forms.Textarea)
+
+
 def ejercicio_7_edit(request, id):
-	context = {}
-	return render(request, 'ejercicio_7_edit.html', context)
+	if request.method == 'POST':
+		print("POSTTTT")
+	    # form = EditForm(request.POST)
+		#
+	    # if form.is_valid():
+	    #     return HttpResponseRedirect('/thanks/')
+
+	else:
+		form = EditForm()
+
+	return render(request, 'ejercicio_7_edit.html', {'form': form})
