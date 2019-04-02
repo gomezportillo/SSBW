@@ -223,13 +223,25 @@ def ejercicio_4(request, my_limit):
 """
 Tema 5
 """
-def ejercicio_5_resultado(request, actor):
+def ejercicio_5_actor(request, actor):
 
-	regex = re.compile(actor)
+	regex = re.compile(actor, re.IGNORECASE)
 	pelis_list = pelis.find({'actors':regex})
 
 	context = {
-		'actor': actor,
+		'busqueda': actor,
+		'pelis': pelis_list
+	}
+	return render(request, 'ejercicio_5_resultado.html', context)
+
+
+def ejercicio_5_title(request, title):
+
+	regex = re.compile(title, re.IGNORECASE)
+	pelis_list = pelis.find({'title':regex})
+
+	context = {
+		'busqueda': title,
 		'pelis': pelis_list
 	}
 	return render(request, 'ejercicio_5_resultado.html', context)
@@ -237,7 +249,11 @@ def ejercicio_5_resultado(request, actor):
 
 def ejercicio_5_buscar(request):
 	if request.GET.get('actor'):
-		return ejercicio_5_resultado(request, request.GET.get('actor'))
+		return ejercicio_5_actor(request, request.GET.get('actor'))
+
+	elif request.GET.get('title'):
+		return ejercicio_5_title(request, request.GET.get('title'))
+
 	else:
 		return render(request, 'ejercicio_5_buscar.html')
 
@@ -256,3 +272,9 @@ def ejercicio_6(request, id):
 	}
 
 	return render(request, 'ejercicio_6_info.html', context)
+
+"""
+Tema 7
+"""
+def ejercicio_7(request):
+	pass
