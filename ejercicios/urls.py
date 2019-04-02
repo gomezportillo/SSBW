@@ -28,4 +28,7 @@ urlpatterns = [
 
 	# Tema 6. CSS
 	path('pelis/info/<str:id>', views.ejercicio_6, name='info'),
+
+	# Tema 7. CRUD
+	path('pelis/edit/<str:id>', views.ejercicio_7_edit, name='edit'),
 ]

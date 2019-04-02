@@ -264,6 +264,7 @@ Tema 6
 def ejercicio_6(request, id):
 	peli = pelis.find_one({'_id': ObjectId(id)})
 
+	# Fix image URL
 	if peli['poster']:
 		peli['poster'] = peli['poster'].replace('http://ia.media-imdb.com', 'https://m.media-amazon.com')
 
@@ -273,8 +274,10 @@ def ejercicio_6(request, id):
 
 	return render(request, 'ejercicio_6_info.html', context)
 
+
 """
 Tema 7
 """
-def ejercicio_7(request):
-	pass
+def ejercicio_7_edit(request, id):
+	context = {}
+	return render(request, 'ejercicio_7_edit.html', context)
