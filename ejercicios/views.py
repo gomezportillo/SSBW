@@ -278,24 +278,8 @@ def ejercicio_6(request, id):
 """
 Tema 7
 """
-# from django.db import models
-# from django.forms import ModelForm
-#
-# class Movie(models.Model):
-#     title 	 = forms.CharField(max_length=999)
-#     year 	 = forms.IntegerField()
-#     runtime  = forms.IntegerField()
-#     director = forms.CharField(max_length=999)
-#     poster   = forms.CharField(max_length=999)
-#     plot 	 = forms.CharField(widget=forms.Textarea)
-#
-#
-# class MovieForm(forms.ModelForm):
-# 	class Meta:
-# 		model = Movie
-# 		fields = ['title', 'year', 'runtime', 'director', 'poster', 'plot']
-
 from django import forms
+from django.http import HttpResponseNotAllowed
 
 class EditForm(forms.Form):
 
@@ -314,7 +298,7 @@ def ejercicio_7_edit(request, id):
 		form = EditForm(request.POST)
 
 		if form.is_valid():
-			updated_movie = request.POST	
+			updated_movie = request.POST
 			criteria = {'_id': ObjectId(updated_movie['_id'])}
 			changes = {"$set" : {'title' : updated_movie['title'],
 								 'year' : updated_movie['year'],
@@ -331,3 +315,21 @@ def ejercicio_7_edit(request, id):
 		form = EditForm(initial=peli)
 
 	return render(request, 'ejercicio_7_edit.html', {'form': form})
+
+
+from django.views.decorators.csrf import csrf_exempt
+
+# Ha sido implsible hacer mandar la token CSRF desde javascript asique lo deshabilito
+@csrf_exempt
+def ejercicio_7_delete(request, id):
+	if request.method == 'DELETE':
+		peli = pelis.find_one({'_id': ObjectId(id)})
+		if (peli):
+			criteria = {'_id' : id}
+			# pelis.delete_one(criteria)
+			print("Peli " + peli['title'] + " borrada correctamente✔️")
+
+			return HttpResponse('Película borrada correctamente!✔️')
+
+	else:
+		return HttpResponseNotAllowed('Solamente está permitida la petición HTTP DELETE en esta ruta')
