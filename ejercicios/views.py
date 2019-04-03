@@ -280,7 +280,7 @@ Tema 7
 """
 # from django.db import models
 # from django.forms import ModelForm
-# 
+#
 # class Movie(models.Model):
 #     title 	 = forms.CharField(max_length=999)
 #     year 	 = forms.IntegerField()
@@ -299,12 +299,13 @@ from django import forms
 
 class EditForm(forms.Form):
 
-    title 	 = forms.CharField(max_length=999)
-    year 	 = forms.IntegerField()
-    runtime  = forms.IntegerField()
-    director = forms.CharField(max_length=999)
-    poster   = forms.CharField(max_length=999)
-    plot 	 = forms.CharField(widget=forms.Textarea)
+	_id 	 = forms.CharField(max_length=999)
+	title 	 = forms.CharField(max_length=999)
+	year 	 = forms.IntegerField()
+	runtime  = forms.IntegerField()
+	director = forms.CharField(max_length=999)
+	poster   = forms.CharField(max_length=999)
+	plot 	 = forms.CharField(widget=forms.Textarea)
 
 
 def ejercicio_7_edit(request, id):
@@ -313,6 +314,16 @@ def ejercicio_7_edit(request, id):
 		form = EditForm(request.POST)
 
 		if form.is_valid():
+			updated_movie = request.POST	
+			criteria = {'_id': ObjectId(updated_movie['_id'])}
+			changes = {"$set" : {'title' : updated_movie['title'],
+								 'year' : updated_movie['year'],
+								 'runtime' : updated_movie['runtime'],
+								 'director' : updated_movie['director'],
+								 'poster' : updated_movie['poster'],
+								 'plot' : updated_movie['plot']}}
+			pelis.update_one(criteria, changes)
+
 			return HttpResponse('Película actualizada correctamente!✔️')
 
 	else:
