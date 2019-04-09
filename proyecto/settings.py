@@ -119,3 +119,55 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+## Logging
+## https://docs.djangoproject.com/en/2.2/topics/logging/
+
+LOG_FILE = 'mi_archivo_de.log'
+
+LOGGING = {
+ 'version': 1,
+ 'disable_existing_loggers': False,
+
+'formatters': {
+   'verbose': {
+     'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+      'datefmt' : "%d/%b/%Y %H:%M:%S"
+    },
+   'simple': {
+     'format': '%(levelname)s [%(name)s:%(lineno)s] %(message)s'
+       },
+   },
+
+   'handlers': {
+       'file': {
+           'level': 'INFO',
+           'class': 'logging.FileHandler',
+           'filename': os.path.join(BASE_DIR, LOG_FILE),
+           'formatter': 'verbose',
+           'mode':'w'
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        }
+    },
+
+    'loggers': {
+        'django': {
+            'handlers':['file'],
+            'propagate': True,
+            'level':'ERROR',
+         },
+         'ejercicios': {
+            'handlers': ['file', 'console'],
+             'level': 'DEBUG',
+          },
+          'pelis': {
+             'handlers': ['file', 'console'],
+              'level': 'DEBUG',
+           },
+      }
+ }

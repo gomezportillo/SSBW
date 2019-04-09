@@ -9,9 +9,16 @@ import requests
 from pymongo import MongoClient
 from bson import ObjectId
 
+# Configuring the logger
+import logging
+logger = logging.getLogger(__name__)
+
+
+# Configuring MongoDB
 client = MongoClient('mongo', 27017)
 db = client.movies
 pelis = db.pelis
+
 
 """
 Tema 1
@@ -28,6 +35,7 @@ def ejercicio_1_1(request, usuario):
 		</h2>
 		</html>""".format(usuario)
 
+	logger.info('The user has been just saluted!')
 	return HttpResponse(msg)
 
 
