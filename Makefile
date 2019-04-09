@@ -5,6 +5,12 @@ all:
 build:
 	docker-compose build
 
+migrate:
+	docker-compose run web python manage.py migrate
+
+superuser:
+	docker-compose run web python manage.py createsuperuser
+
 django-startproject:
 	docker-compose run web django-admin.py startproject proyecto .
 	sudo chown -R $USER:$USER .
