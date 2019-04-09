@@ -2,6 +2,17 @@ version: '3'
 
 services:
 
+  nginx:
+    image: nginx:alpine
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./conf:/etc/nginx/conf.d:ro
+      - ./cert:/etc/ssl/private:ro
+    depends_on:
+      - web
+
   mongo:
     image: mongo:4.0
     volumes:
