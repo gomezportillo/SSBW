@@ -16,6 +16,13 @@
 </head>
 <body>
   <div class="container">
+
+    {% if user.is_authenticated %}
+      <div class="col-md-12">
+        <p>Logeado como {{ user.get_username }}. <a href="https://localhost/accounts/logout/">Logout</a></p>
+      </div>
+    {% endif %}
+
     <div class="col-md-12">
 
       <br>

@@ -18,14 +18,28 @@
 <body>
   <div class="container">
     <div class="col-md-12">
-
+      {% if user.is_authenticated %}
+      <div style="background-color:LightGray">
+        <p>Logeado como {{ user.get_username }}. <a href="https://localhost/accounts/logout/">Logout</a></p>
+      </div>
+      {% endif %}
       <br>
 
       <div class="row">
         <h2>Películas encontradas con <i>{{busqueda}}</i></h2>
       </div>
 
-      <br><br>
+      <br>
+      <div style="background-color:#ff91b2">
+      {% if not user.is_authenticated %}
+        <p>Solo puedes ver 5 resultados porque no estás autentificado como usuario del sistema. Haz <a href="https://localhost/accounts/login/">login</a> para autentificarte</p>
+      {% else %}
+        {% if not request.user|has_group:"Staff" %}
+          <p>No puedes editar ni eliminar películas porque no pertences al grupo Staff.</p>
+        {% endif %}
+      {% endif %}
+    </div>
+      <br>
 
       <table class="table table-hover">
         <thead>
@@ -44,15 +58,18 @@
             <td>{{ p.director }}</td>
             <td>{{ p.year }}</td>
             <td>{{ p.imdb.rating }}</td>
+
+            {% if request.user|has_group:"Staff" %}
             <td>
               <a role="button" class="btn btn-success" id="view-btn" href={% url 'info' p|get:'_id' %}>Ver</a>
               <a role="button" class="btn btn-primary" id="edit-btn" href={% url 'edit' p|get:'_id' %}>Editar</a>
               <a role="button" class="btn btn-danger"  id="delete-btn" onclick="someFunction('{{p|get:'_id'}}');" >Borrar</a>
             </td>
+            {% endif %}
+
           </tr>
           {% endfor %}
         </table>
-
       </div>
     </div>
 
