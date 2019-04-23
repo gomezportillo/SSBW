@@ -243,10 +243,17 @@ def ejercicio_5_actor(request, actor):
 	return render(request, 'ejercicio_5_resultado.html', context)
 
 
+# Actualizacion tema 9: Limitar el numero de pelis que devuelve en funcion de si el usuario está autentificado
 def ejercicio_5_title(request, title):
+	MAX_PELIS = 5
 
 	regex = re.compile(title, re.IGNORECASE)
-	pelis_list = pelis.find({'title':regex})
+
+	if request.user.is_authenticated:
+		pelis_list = pelis.find({'title':regex})
+	else:
+		pelis_list = pelis.find({'title':regex}).limit(MAX_PELIS)
+
 
 	context = {
 		'busqueda': title,
@@ -328,6 +335,7 @@ def ejercicio_7_edit(request, id):
 from django.views.decorators.csrf import csrf_exempt
 
 # Ha sido implsible hacer mandar la token CSRF desde javascript asique lo deshabilito
+# La linea que borra películas ha sido comentada
 @csrf_exempt
 def ejercicio_7_delete(request, id):
 	if request.method == 'DELETE':
