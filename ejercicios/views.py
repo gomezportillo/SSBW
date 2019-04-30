@@ -270,7 +270,16 @@ def ejercicio_5_buscar(request):
 		return ejercicio_5_title(request, request.GET.get('title'))
 
 	else:
-		return render(request, 'ejercicio_5_buscar.html')
+
+		movies_list = ""
+		for peli in pelis.find():
+			movies_list += "\"{}\",\n".format(peli['title'])
+			
+		context = {
+			'movies_list': movies_list[:-2] # removing last comma
+		}
+
+		return render(request, 'ejercicio_5_buscar.html', context)
 
 
 """
