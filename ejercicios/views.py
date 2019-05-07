@@ -362,6 +362,6 @@ def ejercicio_7_delete(request, id):
 
 @csrf_exempt
 def ejercicio_11_like(request, id):
-	if request.method == 'GET':
-		print("lIKED movie " + id)
+	if request.method == 'POST':
+		print("LIKED movie " + id)
 		return HttpResponse(randint(1, 99))
