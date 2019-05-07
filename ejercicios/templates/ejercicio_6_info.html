@@ -1,12 +1,18 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- required meta tags -->
+  <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+  <!-- jQuery -->
+  <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.js"></script>
+
   <!-- Roboto Google's font -->
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+  <!-- Font awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <title>
     CSS
@@ -45,11 +51,22 @@
   {
     padding-left: 15px;
   }
+  #like-button
+  {
+    font-size: 20px;
+  }
   </style>
 
 </head>
 <body>
-  <h1>Información de la película <i>{{ peli.title }}</i></h1>
+
+  <h1>
+    Información de la película <i>{{ peli.title }}</i>
+    <br><br>
+    <button class="btn" id="like-button" onclick="like_movie('{{peli.title}}');">
+      <i class="fa fa-thumbs-up" id="like-button-txt"> Like!</i>
+    </button>
+  </h1>
 
   <table class="my-table">
     <thead>
@@ -58,23 +75,43 @@
     </thead>
     <tbody>
       {% for key, value in peli.items %}
-        {% if key != 'tomato' %}
-        <tr>
-          <td class="key">
-            {{ key }}
-          </td>
-          <td class="value">
-            {% if key == 'poster' %}
-              <img alt="Imagen no disponible" src="{{ value }}">
-            {% else %}
-              {{ value }}
-            {% endif %}
-          </td>
-        </tr>
-        {% endif %}
+      {% if key != 'tomato' %}
+      <tr>
+        <td class="key">
+          {{ key }}
+        </td>
+        <td class="value">
+          {% if key == 'poster' %}
+          <img alt="Imagen no disponible" src="{{ value }}">
+          {% else %}
+          {{ value }}
+          {% endif %}
+        </td>
+      </tr>
+      {% endif %}
       {% endfor %}
     </tbody>
   </table>
-</div>
+
+  <script>
+  function like_movie(id)
+  {
+    $.ajax({
+      url: '/ejercicios/pelis/like/' + id,
+      type: 'GET',
+      data: {},
+      success: function (num_likes)
+      {
+        var txt = ' Total number of likes: ' + num_likes + '!'
+        $("#like-button-txt").html(txt);
+        $("#like-button").attr('disabled', true);
+      },
+      error: function (request, message, error)
+      {
+        console.log("Error performing POST on like");
+      }
+    });
+  }
+</script>
 </body>
 </html>

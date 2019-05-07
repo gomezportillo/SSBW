@@ -32,4 +32,7 @@ urlpatterns = [
 	# Tema 7. CRUD
 	path('pelis/edit/<str:id>', views.ejercicio_7_edit, name='edit'),
 	path('pelis/delete/<str:id>', views.ejercicio_7_delete, name='delete'),
+
+	# Tema 11. AJAX
+	path('pelis/like/<str:id>', views.ejercicio_11_like, name='like'),
 ]

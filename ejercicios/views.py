@@ -274,7 +274,7 @@ def ejercicio_5_buscar(request):
 		movies_list = ""
 		for peli in pelis.find():
 			movies_list += "\"{}\",\n".format(peli['title'])
-			
+
 		context = {
 			'movies_list': movies_list[:-2] # removing last comma
 		}
@@ -358,3 +358,10 @@ def ejercicio_7_delete(request, id):
 
 	else:
 		return HttpResponseNotAllowed('Solamente está permitida la petición HTTP DELETE en esta ruta')
+
+
+@csrf_exempt
+def ejercicio_11_like(request, id):
+	if request.method == 'GET':
+		print("lIKED movie " + id)
+		return HttpResponse(randint(1, 99))
