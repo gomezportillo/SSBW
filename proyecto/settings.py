@@ -44,6 +44,10 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+
+    # api rest
+    'rest_framework',
+    'rest_framework_mongoengine'
 ]
 
 MIDDLEWARE = [

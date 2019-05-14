@@ -2,6 +2,13 @@ from django.urls import path
 
 from . import views
 
+from django.conf.urls import include, url
+from rest_framework import routers
+from .viewsets import PelisViewSet
+
+router = routers.DefaultRouter()
+router.register('pelis', PelisViewSet, 'peli')
+
 urlpatterns = [
 
 	# Tema 1: Python 101
@@ -35,4 +42,10 @@ urlpatterns = [
 
 	# Tema 11. AJAX
 	path('pelis/like/<str:id>', views.ejercicio_11_like, name='like'),
+
+	# Tema 12. API REST
+	path('api_pelis',    views.api_pelis),  # GET lista todas, POST añade
+	path('api_peli/<id>', views.api_peli),  # GET lista una,   PUT modifica, DELETE borrra
+
+	url('api', include(router.urls)), # Incluye todo el API CRUD
 ]

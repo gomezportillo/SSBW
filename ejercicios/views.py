@@ -359,9 +359,57 @@ def ejercicio_7_delete(request, id):
 	else:
 		return HttpResponseNotAllowed('Solamente está permitida la petición HTTP DELETE en esta ruta')
 
-
+"""
+Tema 11. AJAX
+"""
 @csrf_exempt
 def ejercicio_11_like(request, id):
 	if request.method == 'POST':
 		print("LIKED movie " + id)
 		return HttpResponse(randint(1, 99))
+
+
+"""
+Tema 12. API REST
+"""
+
+from django.http import JsonResponse
+from .serializers import PelisSerializer
+from .models import Pelis
+
+
+# Listar todas, Añadir
+def api_pelis(request):
+	if request.method == 'GET':
+		pelis = Pelis.objects.all()[:10]
+		serializer = PelisSerializer(pelis, many=True)
+		return JsonResponse(serializer.data, safe=False)
+
+	if request.method == 'POST':
+		data = JSONParser().parse(request)
+		serializer = PelisSerializer(data=data)
+		if serializer.is_valid():
+			serializer.save()
+			return JsonResponse(serializer.data, status=201)
+
+	logger.debug('Error')
+	return JsonResponse(serializers.errors, stauts=400)
+
+
+# Listar, Modificar, Borrar
+def api_peli(request, id):
+	try:
+		peli = Pelis.objects().get(id=id)
+	except:
+		logger.debug('Peli no encontrada '+id)
+		return HttpResponse(status=404)  # No encontrado
+
+	if request.method == 'GET':
+		serializer = PelisSerializer(peli)
+		return JsonResponse(serializer.data)
+
+	if request.method == 'PUT':
+		pass
+
+	if request.method == 'DELETE':
+		pass

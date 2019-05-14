@@ -21,6 +21,9 @@ django-create-app:
 import-data:
 	docker-compose exec mongo mongoimport --db movies --collection pelis --file /archivos/datos/movies.json
 
+shell:
+	sudo docker-compose run web python manage.py shell
+
 install:
 	# install docker
 	sudo apt-get install apt-transport-https ca-certificates curl gnupg2 software-properties-common -y
