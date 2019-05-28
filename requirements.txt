@@ -4,3 +4,4 @@ mongoengine==0.16
 django-allauth==0.39.1
 djangorestframework==3.9.3
 django-rest-framework-mongoengine==3.3.1
+django-cors-headers==3.0.1
