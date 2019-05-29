@@ -22,3 +22,5 @@ For setting up and launching the project, download this repository and execute
 ![Result](img/4.jpg)
 
 ![Info + like](img/5.jpg)
+
+![ReactJS frontend](img/6.jpg)
