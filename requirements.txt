@@ -2,6 +2,6 @@ Django>=2.0,<3.0
 requests==2.20.0
 mongoengine==0.16
 django-allauth==0.39.1
-djangorestframework==3.9.3
+djangorestframework==3.11.2
 django-rest-framework-mongoengine==3.3.1
 django-cors-headers==3.0.1
